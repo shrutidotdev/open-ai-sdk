@@ -1,5 +1,7 @@
 import 'dotenv/config';
 import { Agent, tool, run } from '@openai/agents';
+import { RECOMMENDED_PROMPT_PREFIX } from '@openai/agents-core/extensions';
+
 import {z} from 'zod';
 import fs from 'node:fs/promises';
 
@@ -50,7 +52,8 @@ const shoe_store_agent = new Agent({
 
 const customer_support_agent = new Agent({
     name: "Customer Support Agent",
-    instructions: "You are a helpful customer support agent. For shoe-related inquiries, hand off to the Shoe Store Agent",
+    instructions: `${RECOMMENDED_PROMPT_PREFIX}
+    You are a helpful customer support agent. For shoe-related inquiries, hand off to the Shoe Store Agent.`,
     handoffs: [shoe_store_agent]
 })
 
